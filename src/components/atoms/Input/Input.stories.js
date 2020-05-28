@@ -3,7 +3,7 @@ import Input from './Input';
 
 export default {
   component: Input,
-  title: 'Input',
+  title: 'Atoms/Input',
 };
 
 export const input = () => <Input placeholder="login" />;
