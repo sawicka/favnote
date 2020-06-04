@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
 
 const InnerWrapper = styled.div`
   position: relative;
-  padding: 17px 30px 10px;
+  padding: 17px 30px;
   background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
 
   :first-of-type {
@@ -41,7 +41,7 @@ const DateInfo = styled(Paragraph)`
 `;
 
 const StyledHeading = styled(Heading)`
-  margin: 5px 0 0;
+  margin: 5px ${({ rightMargin }) => rightMargin} 0 0;
 `;
 
 const StyledAvatar = styled.img`
@@ -68,18 +68,16 @@ const StyledLinkButton = styled.a`
   transform: translateY(-50%);
 `;
 
-const Card = ({ cardType }) => (
+const Card = ({ cardType, title, created, twitterName, articleUrl, content }) => (
   <StyledWrapper>
     <InnerWrapper activeColor={cardType}>
-      <StyledHeading>Hello</StyledHeading>
-      <DateInfo>3 days</DateInfo>
-      {cardType === 'twitter' && (
-        <StyledAvatar src="https://www.pngitem.com/pimgs/m/78-786293_1240-x-1240-0-avatar-profile-icon-png.png" />
-      )}
-      {cardType === 'article' && <StyledLinkButton href="https://youtube.com" />}
+      <StyledHeading rightMargin={cardType === 'article' ? '47px' : '0'}>{title}</StyledHeading>
+      <DateInfo>{created}</DateInfo>
+      {cardType === 'twitter' && <StyledAvatar src={`http://twivatar.glitch.me/${twitterName}`} />}
+      {cardType === 'article' && <StyledLinkButton href={articleUrl} />}
     </InnerWrapper>
     <InnerWrapper flex>
-      <Paragraph>Lorem ipsum saofjna[ a;sjgnas[ aosidgoa aoi[nos aospdin zsdfasd]a]]ag</Paragraph>
+      <Paragraph>{content}</Paragraph>
       <Button secondary>Remove</Button>
     </InnerWrapper>
   </StyledWrapper>
@@ -87,10 +85,17 @@ const Card = ({ cardType }) => (
 
 Card.propTypes = {
   cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
 };
 
 Card.defaultProps = {
   cardType: 'note',
+  twitterName: null,
+  articleUrl: null,
 };
 
 export default Card;
