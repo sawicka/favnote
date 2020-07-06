@@ -1,5 +1,6 @@
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
+  "parser": "babel-eslint",
   "env": {
     "jest": true
   },
@@ -13,7 +14,8 @@
       {
         "extensions": [".js"]
       }
-    ]
+    ],
+    "react/state-in-constructor": [0, "never"]
   },
   "settings": {
     "import/resolver": {

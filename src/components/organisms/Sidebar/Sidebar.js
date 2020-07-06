@@ -50,7 +50,7 @@ const Sidebar = ({ pageType }) => (
     <StyledLogoLink to="/" />
     <StyledLinkList>
       <li>
-        <ButtonIcon as={NavLink} exact to="/" icon={penIcon} activeClassName="active" />
+        <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeClassName="active" />
       </li>
       <li>
         <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeClassName="active" />
@@ -64,11 +64,11 @@ const Sidebar = ({ pageType }) => (
 );
 
 Sidebar.propTypes = {
-  pageType: PropTypes.oneOf(['note', 'article', 'twiiter']),
+  pageType: PropTypes.oneOf(['notes', 'articles', 'twitters']),
 };
 
 Sidebar.defaultProps = {
-  pageType: 'note',
+  pageType: 'notes',
 };
 
 export default Sidebar;
