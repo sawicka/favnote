@@ -6,9 +6,10 @@ import UserPageTemplate from 'templates/UserPageTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
+import withContext from 'hoc/withContext';
 
 const DetailsWrapper = styled.div`
-  margin: 100px 0 0 100px;
+  margin: 100px 0 0 70px;
   width: 50%;
 `;
 
@@ -35,7 +36,7 @@ const StyledAvatar = styled.img`
   border-radius: 60px;
   position: absolute;
   top: 100px;
-  right: 30%;
+  right: 32%;
 `;
 
 const CloseButton = styled(Button)`
@@ -52,17 +53,19 @@ class DetailsTemplate extends Component {
   };
 
   render() {
-    const { children, pageType } = this.props;
+    const { children, pageContext } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to={`/${pageType}/`} />;
+      return <Redirect to={`/${pageContext}/`} />;
     }
 
     return (
-      <UserPageTemplate pageType={pageType}>
+      <UserPageTemplate pageType={pageContext}>
         <DetailsWrapper>
-          {pageType === 'twitters' && <StyledAvatar src="http://twivatar.glitch.me/hello_roman" />}
+          {pageContext === 'twitters' && (
+            <StyledAvatar src="http://twivatar.glitch.me/hello_roman" />
+          )}
           <Heading big>Tytuł</Heading>
           <DateInfo>10 days ago</DateInfo>
           <Content>
@@ -81,8 +84,8 @@ class DetailsTemplate extends Component {
             eiusmod sint ex. Ullamco laborum magna incididunt duis cupidatat nisi. Ea culpa
             consectetur reprehenderit veniam velit cillum anim sint do voluptate anim.
           </Content>
-          {pageType === 'articles' && <Link href="https://google.com">open article</Link>}
-          <CloseButton type={pageType} onClick={this.handleClick}>
+          {pageContext === 'articles' && <Link href="https://google.com">open article</Link>}
+          <CloseButton type={pageContext} onClick={this.handleClick}>
             close / save
           </CloseButton>
           {children}
@@ -94,12 +97,12 @@ class DetailsTemplate extends Component {
 
 DetailsTemplate.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
-  pageType: PropTypes.oneOf(['notes', 'articles', 'twitters']),
+  pageContext: PropTypes.oneOf(['notes', 'articles', 'twitters']),
 };
 
 DetailsTemplate.defaultProps = {
-  pageType: 'notes',
+  pageContext: 'notes',
   children: PropTypes.element,
 };
 
-export default DetailsTemplate;
+export default withContext(DetailsTemplate);

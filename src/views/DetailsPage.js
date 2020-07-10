@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import { routes } from 'routes/index';
 import { PropTypes } from 'prop-types';
+import PageContext from 'context';
 
 class DetailsPage extends Component {
   state = {
@@ -30,12 +31,17 @@ class DetailsPage extends Component {
     // const { match } = this.props;
     const { pageType } = this.state;
 
-    return <DetailsTemplate pageType={pageType} />;
+    return (
+      <PageContext.Provider value={pageType}>
+        <DetailsTemplate />
+      </PageContext.Provider>
+    );
   }
 }
 
 DetailsPage.propTypes = {
-  match: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object,
 };
 
 DetailsPage.defaultProps = {
