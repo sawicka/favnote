@@ -61,7 +61,7 @@ class DetailsTemplate extends Component {
     }
 
     return (
-      <UserPageTemplate pageType={pageContext}>
+      <UserPageTemplate>
         <DetailsWrapper>
           {pageContext === 'twitters' && (
             <StyledAvatar src="http://twivatar.glitch.me/hello_roman" />
