@@ -8,7 +8,7 @@ import PageContext from 'context';
 
 class MainTemplate extends Component {
   state = {
-    pageType: 'note',
+    pageType: 'notes',
   };
 
   componentDidMount() {
@@ -30,7 +30,6 @@ class MainTemplate extends Component {
 
     if (prevState.pageType !== currentPage) {
       this.setState({ pageType: currentPage });
-      console.log(currentPage);
     }
   };
 
@@ -51,7 +50,8 @@ class MainTemplate extends Component {
 
 MainTemplate.propTypes = {
   children: PropTypes.element.isRequired,
-  location: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  location: PropTypes.object.isRequired,
 };
 
 export default withRouter(MainTemplate);

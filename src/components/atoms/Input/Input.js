@@ -3,11 +3,13 @@ import magnifierIcon from 'assets/icons/magnifier.svg';
 
 const Input = styled.input`
   padding: 15px 30px;
+  margin: 30px 0 0;
   font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: ${({ theme }) => theme.bold};
   background-color: ${({ theme }) => theme.grey100};
   border: none;
   border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
 
   ::placeholder {
     text-transform: uppercase;
