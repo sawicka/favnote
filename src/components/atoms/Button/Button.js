@@ -12,6 +12,7 @@ const Button = styled.button`
   font-size: 16px;
   text-transform: uppercase;
   cursor: pointer;
+  margin: 0 ${({ center }) => center && 'auto'};
 
   ${({ secondary, theme }) =>
     secondary &&

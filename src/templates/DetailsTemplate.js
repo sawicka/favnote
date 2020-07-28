@@ -53,7 +53,7 @@ class DetailsTemplate extends Component {
   };
 
   render() {
-    const { children, pageContext } = this.props;
+    const { pageContext } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
@@ -88,7 +88,6 @@ class DetailsTemplate extends Component {
           <CloseButton type={pageContext} onClick={this.handleClick}>
             close / save
           </CloseButton>
-          {children}
         </DetailsWrapper>
       </UserPageTemplate>
     );
@@ -96,13 +95,11 @@ class DetailsTemplate extends Component {
 }
 
 DetailsTemplate.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
   pageContext: PropTypes.oneOf(['notes', 'articles', 'twitters']),
 };
 
 DetailsTemplate.defaultProps = {
   pageContext: 'notes',
-  children: PropTypes.element,
 };
 
 export default withContext(DetailsTemplate);

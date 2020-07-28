@@ -20,13 +20,15 @@ class MainTemplate extends Component {
   }
 
   setCurrentPage = (prevState = '') => {
-    const pageTypes = ['twitters', 'notes', 'articles'];
+    const pageTypes = ['twitters', 'notes', 'articles', 'login'];
     const {
       location: { pathname },
     } = this.props;
 
     // destrukturyzacja tablicy z jednym element do stringa
-    const [currentPage] = pageTypes.filter((page) => pathname.includes(page));
+    let [currentPage] = pageTypes.filter((page) => pathname.includes(page));
+    // sprawdzenie czy currentPage jest zdefiniowany
+    currentPage = currentPage || 'notes';
 
     if (prevState.pageType !== currentPage) {
       this.setState({ pageType: currentPage });
@@ -40,7 +42,7 @@ class MainTemplate extends Component {
     return (
       <div>
         <PageContext.Provider value={pageType}>
-          <GlobalStyle />
+          <GlobalStyle pageType={pageType} />
           <ThemeProvider theme={theme}> {children}</ThemeProvider>
         </PageContext.Provider>
       </div>

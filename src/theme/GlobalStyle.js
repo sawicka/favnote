@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        padding-left: 150px;
+        padding-left: ${({ pageType }) => (pageType === 'login' ? 0 : '150px')};
         font-size: 1.6rem;
         font-family: "Montserrat", sans-serif;
         margin: 0;

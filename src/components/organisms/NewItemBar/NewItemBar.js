@@ -38,7 +38,7 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const NewItemBar = ({ pageContext, isVisible, addItem, handleClose }) => (
+const NewItemBar = ({ pageContext = 'notes', isVisible, addItem, handleClose }) => (
   <StyledWrapper big activeColor={pageContext} isVisible={isVisible}>
     <Heading>Create new {pageContext.slice(0, -1)} </Heading>
     <Formik
@@ -53,6 +53,7 @@ const NewItemBar = ({ pageContext, isVisible, addItem, handleClose }) => (
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <StyledForm onSubmit={handleSubmit}>
           <Input
+            first
             type="text"
             name="title"
             onChange={handleChange}
