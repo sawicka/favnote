@@ -1,36 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
+import { fetchItems } from 'actions';
 
-const Twitters = ({ twitters }) => (
-  <GridTemplate amount={twitters.length}>
-    {twitters.map((item) => (
-      <Card
-        id={item.id}
-        title={item.title}
-        content={item.content}
-        created={item.created}
-        twitterName={item.twitterName}
-        key={item.title}
-      />
-    ))}
-  </GridTemplate>
-);
+class Twitters extends Component {
+  componentDidMount() {
+    const { fetchTwitters } = this.props;
+    fetchTwitters();
+  }
+
+  render() {
+    const { twitters } = this.props;
+
+    return (
+      <GridTemplate amount={twitters.length}>
+        {twitters.map(({ title, content, twitterName, created, _id: id }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            created={created}
+            twitterName={twitterName}
+            key={title}
+          />
+        ))}
+      </GridTemplate>
+    );
+  }
+}
 
 Twitters.propTypes = {
+  fetchTwitters: PropTypes.func.isRequired,
   twitters: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       twitterName: PropTypes.string.isRequired,
-      created: PropTypes.string.isRequired,
+      created: PropTypes.string,
     }),
   ),
 };
-
 Twitters.defaultProps = {
   twitters: [],
 };
@@ -39,4 +51,8 @@ Twitters.defaultProps = {
 // zwracany obiekt to {twitters: twitters} ale es6 pozwala to zapisać tak bo nazwy są takie same
 const mapStateToProps = ({ twitters }) => ({ twitters });
 
-export default connect(mapStateToProps)(Twitters);
+const mapDispatchToProps = (dispatch) => ({
+  fetchTwitters: () => dispatch(fetchItems('twitters')),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Twitters);

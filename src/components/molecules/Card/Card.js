@@ -102,8 +102,8 @@ class Card extends Component {
     else if (pageContext === 'twitters') rightMargin = '86px';
 
     return (
-      <StyledWrapper onClick={this.handelCardClick}>
-        <InnerWrapper activeColor={pageContext}>
+      <StyledWrapper>
+        <InnerWrapper onClick={this.handelCardClick} activeColor={pageContext}>
           <StyledHeading rightMargin={rightMargin}>{title}</StyledHeading>
           <DateInfo>{created}</DateInfo>
           {pageContext === 'twitters' && (
@@ -124,9 +124,9 @@ class Card extends Component {
 
 Card.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
+  created: PropTypes.string,
   twitterName: PropTypes.string,
   articleUrl: PropTypes.string,
   content: PropTypes.string.isRequired,
@@ -137,6 +137,7 @@ Card.defaultProps = {
   pageContext: 'notes',
   twitterName: null,
   articleUrl: null,
+  created: null,
 };
 
 const mapDispatchToProps = (dispatch) => ({

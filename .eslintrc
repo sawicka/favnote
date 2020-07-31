@@ -16,7 +16,8 @@
         "extensions": [".js"]
       }
     ],
-    "react/state-in-constructor": [0, "never"]
+    "react/state-in-constructor": [0, "never"],
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {

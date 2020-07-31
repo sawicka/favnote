@@ -6,7 +6,6 @@ import UserPageTemplate from 'templates/UserPageTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
-import withContext from 'hoc/withContext';
 
 const DetailsWrapper = styled.div`
   margin: 100px 0 0 70px;
@@ -53,38 +52,23 @@ class DetailsTemplate extends Component {
   };
 
   render() {
-    const { pageContext } = this.props;
+    const { pageContext, item } = this.props;
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to={`/${pageContext}/`} />;
+      return <Redirect to={`/${pageContext}`} />;
     }
 
     return (
       <UserPageTemplate>
         <DetailsWrapper>
           {pageContext === 'twitters' && (
-            <StyledAvatar src="http://twivatar.glitch.me/hello_roman" />
+            <StyledAvatar src={`http://twivatar.glitch.me/${item.twitterName}`} />
           )}
-          <Heading big>Tytuł</Heading>
+          <Heading big>{item.title}</Heading>
           <DateInfo>10 days ago</DateInfo>
-          <Content>
-            Laboris aliquip non est nulla. Anim velit eu incididunt ea ullamco do dolore ullamco
-            velit officia. Mollit non ad occaecat consequat nulla ex cillum fugiat pariatur. Quis
-            esse labore excepteur labore nulla duis duis consectetur ut qui cillum in enim. Laborum
-            labore aute ad eu. Ad laborum occaecat sunt nulla consectetur velit excepteur voluptate
-            laboris aliquip esse qui ipsum. Sunt adipisicing Lorem labore minim ex Lorem ut nostrud
-            ad Lorem nostrud. Minim quis non et ea ullamco. Excepteur culpa quis consequat irure
-            excepteur. Officia excepteur anim cillum aliqua cupidatat in. Dolore aute veniam ipsum
-            excepteur. Elit adipisicing non aliquip non veniam. Id voluptate ea eiusmod incididunt.
-            Est labore enim incididunt est cillum. Velit qui anim magna incididunt fugiat do minim.
-            Consectetur anim aliquip aliquip minim elit exercitation nisi dolor duis irure officia.
-            Ullamco consequat id veniam exercitation esse dolor aute exercitation nostrud veniam
-            voluptate pariatur irure. Nisi dolore cillum commodo incididunt fugiat eiusmod cupidatat
-            eiusmod sint ex. Ullamco laborum magna incididunt duis cupidatat nisi. Ea culpa
-            consectetur reprehenderit veniam velit cillum anim sint do voluptate anim.
-          </Content>
-          {pageContext === 'articles' && <Link href="https://google.com">open article</Link>}
+          <Content> {item.content}</Content>
+          {pageContext === 'articles' && <Link href={item.articleUrl}>open article</Link>}
           <CloseButton type={pageContext} onClick={this.handleClick}>
             close / save
           </CloseButton>
@@ -96,10 +80,12 @@ class DetailsTemplate extends Component {
 
 DetailsTemplate.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'articles', 'twitters']),
+  // eslint-disable-next-line react/forbid-prop-types
+  item: PropTypes.object.isRequired,
 };
 
 DetailsTemplate.defaultProps = {
   pageContext: 'notes',
 };
 
-export default withContext(DetailsTemplate);
+export default DetailsTemplate;
